@@ -1,0 +1,26 @@
+{
+  "name": "eqls",
+  "version": "1.0.0",
+  "description": "",
+  "main": "eqls.js",
+  "scripts": {
+    "test": "macchiato test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:sonewman/eqls.git"
+  },
+  "keywords": [
+    "deep",
+    "equals"
+  ],
+  "author": "Sam Newman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sonewman/eqls/issues"
+  },
+  "homepage": "https://github.com/sonewman/eqls#readme",
+  "devDependencies": {
+    "macchiato": "^2.8.0"
+  }
+}
