@@ -58,7 +58,7 @@ describe('deepEquals(\'a\', \'a\')')
   t.false(eqls([1, 2, 3], [4, 5, 6]))
   t.end()
 })
-it('should return true with two dates of equal value', function (t) {
+.it('should return true with two dates of equal value', function (t) {
   t.assert(eqls(new Date('10:23 09/21/2014'), new Date('10:23 09/21/2014')))
   t.end()
 })
@@ -69,4 +69,22 @@ it('should return true with two dates of equal value', function (t) {
 .it('should return false an object and a number value', function (t) {
   t.false(eqls({}, 1))
   t.end()
+})
+
+describe('contains(a, b)`')
+.it('should check that the first arg contains attributes defined in second arg', function (t) {
+  t.true(eqls.contains({ a: 1, b: 2 }, { a: 1 }))
+  t.end();
+})
+.it('should fail if first arg doesn\'t contain all of second arg\'s attributes', function (t) {
+  t.false(eqls.contains({ a: 1 }, { a: 1, b: 2 }))
+  t.end();
+})
+.it('should check that the first arg contains attributes defined in second arg', function (t) {
+  t.true(eqls.contains({ a: 1, b: { a: 1, b: 2} }, { a: 1, b: { b: 2 } }))
+  t.end();
+})
+.it('should check that the first arg contains attributes defined in second arg', function (t) {
+  t.true(eqls.contains([{ a: 1 }, { b: { a: 1, b: 2} }, { a: 1, b: { b: 2 } }], [{ a: 1, b: { b: 2 } }]))
+  t.end();
 })

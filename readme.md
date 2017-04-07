@@ -25,3 +25,8 @@ eqls(new Date('10:23 09/21/2014'), new Date('10:23 09/21/2014')) // => true
 eqls(new Date('10:23 09/21/2014'), new Date('10:23:01 09/21/2014')) // => false
 eqls({}, 1) // => false
 ```
+##### eqls.contains(a, b)
+eqls.contains({ a: 1, b: 2 }, { a: 1 }) // => true
+eqls.contains({ a: 1 }, { a: 1, b: 2 }) // => true
+eqls.contains({ a: 1, b: { a: 1, b: 2} }, { a: 1, b: { b: 2 } }) // => true
+eqls.contains([{ a: 1 }, { b: { a: 1, b: 2} }, { a: 1, b: { b: 2 } }], [{ a: 1, b: { b: 2 } }]) // => true
