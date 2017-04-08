@@ -49,6 +49,12 @@ function matchingNumberOrString(a, b) {
   return noAndSt(a, b) && (Number(a) === Number(b) || String(a) === String(b))
 }
 
+function objectEqls(a, keysOfA, b, keysOfB) {
+  return keysOfB.every(function (key) {
+    return ~keysOfA.indexOf(key) && eqls(a[key], b[key])
+  })
+}
+
 exports.deep = eqls
 function eqls(a, b) {
   if (tripleEquals(a, b)) return true
@@ -63,7 +69,7 @@ function eqls(a, b) {
     var aKeys = recKeys(a)
     var bKeys = recKeys(b)
     if (aKeys.length !== bKeys.length) return false
-    return compareObject(a, aKeys, b, bKeys, eqls)
+    return objectEqls(a, aKeys, b, bKeys)
   }
 
   if (isFunc(a) && isFunc(b)) return compareFunc(a, b)
@@ -118,15 +124,17 @@ function contains(a, b) {
   if (arrayContains(a, b)) return true
 
   if (isObj(a) && isObj(b))
-    return compareObject(a, recKeys(a), b, recKeys(b), contains)
+    return compareObject(a, b)
 
   if (isFunc(a) && isFunc(b)) return compareFunc(a, b)
 
   return false
 }
 
-function compareObject(a, keysOfA, b, keysOfB, next) {
-  return keysOfB.every(function (key) {
-    return ~keysOfA.indexOf(key) && next(a[key], b[key])
+function compareObject(a, b) {
+  if (a == null) return a === b;
+
+  return recKeys(b).every(function (key) {
+    return a[key] && contains(a[key], b[key])
   })
 }

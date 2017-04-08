@@ -38,6 +38,15 @@ describe('deepEquals(\'a\', \'a\')')
   t.assert(eqls('1', 1))
   t.end()
 })
+.it('should handle null values', function (t) {
+  t.false(eqls(null, 1))
+  t.false(eqls(1, null))
+  t.false(eqls(undefined, null))
+  t.false(eqls(null, undefined))
+
+  t.assert(eqls(null, null))
+  t.end()
+})
 .it('should return true two NaN values', function (t) {
   t.assert(eqls(Number('a'), Number('b')))
   t.end()
@@ -87,4 +96,22 @@ describe('contains(a, b)`')
 .it('should check that the first arg contains attributes defined in second arg', function (t) {
   t.true(eqls.contains([{ a: 1 }, { b: { a: 1, b: 2} }, { a: 1, b: { b: 2 } }], [{ a: 1, b: { b: 2 } }]))
   t.end();
+})
+.it('should check that the first arg contains attributes defined in second arg', function (t) {
+  t.true(eqls.contains({ a: 1, b: { a: 1, b: 2} }, { a: 1, b: { b: 2 } }))
+  t.end()
+})
+.it('should compare an object with non-enumerable properties', function (t) {
+  var actual = {};
+  Object.defineProperties(actual, {
+    a: {
+      enumerable: false,
+      get: function () { return 1 }
+    },
+    b: {
+      enumerable: false,
+      get: function () { return 2 }
+    }
+  });
+  t.end(actual, { a: 1, b: 2 })
 })
