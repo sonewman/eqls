@@ -21,6 +21,6 @@
   },
   "homepage": "https://github.com/sonewman/eqls#readme",
   "devDependencies": {
-    "macchiato": "^2.8.0"
+    "macchiato": "^4.6.0"
   }
 }

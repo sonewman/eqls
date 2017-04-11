@@ -83,26 +83,34 @@ describe('deepEquals(\'a\', \'a\')')
 describe('contains(a, b)`')
 .it('should check that the first arg contains attributes defined in second arg', function (t) {
   t.true(eqls.contains({ a: 1, b: 2 }, { a: 1 }))
-  t.end();
+  t.end()
 })
 .it('should fail if first arg doesn\'t contain all of second arg\'s attributes', function (t) {
   t.false(eqls.contains({ a: 1 }, { a: 1, b: 2 }))
-  t.end();
+  t.end()
 })
 .it('should check that the first arg contains attributes defined in second arg', function (t) {
   t.true(eqls.contains({ a: 1, b: { a: 1, b: 2} }, { a: 1, b: { b: 2 } }))
-  t.end();
+  t.end()
 })
-.it('should check that the first arg contains attributes defined in second arg', function (t) {
+.it('should find match in an array', function (t) {
+  t.true(eqls.contains([{ a: 1, b: { b: 2 } }, { a: 1 }, { b: { a: 1, b: 2} }], [{ a: 1, b: { b: 2 } }]))
+  t.end()
+})
+.it('should find match anywhere in an array', function (t) {
   t.true(eqls.contains([{ a: 1 }, { b: { a: 1, b: 2} }, { a: 1, b: { b: 2 } }], [{ a: 1, b: { b: 2 } }]))
-  t.end();
+  t.end()
+})
+.it('should not find match anywhere in an array if there isn\'t one', function (t) {
+  t.false(eqls.contains([{ a: 1 }, { b: { a: 1, b: 2} }, { a: 1, b: { b: 2 } }], [{ a: 1, b: { b: 2, c: 3} }]))
+  t.end()
 })
 .it('should check that the first arg contains attributes defined in second arg', function (t) {
   t.true(eqls.contains({ a: 1, b: { a: 1, b: 2} }, { a: 1, b: { b: 2 } }))
   t.end()
 })
 .it('should compare an object with non-enumerable properties', function (t) {
-  var actual = {};
+  var actual = {}
   Object.defineProperties(actual, {
     a: {
       enumerable: false,
@@ -112,6 +120,6 @@ describe('contains(a, b)`')
       enumerable: false,
       get: function () { return 2 }
     }
-  });
+  })
   t.end(actual, { a: 1, b: 2 })
 })
